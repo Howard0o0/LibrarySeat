@@ -2,15 +2,18 @@ import requests
 import lib
 import os
 import datetime
+import util
+import time
 
 
 
 class User(object):
-    def __init__(self,username='2015301020142',password='17871X'):
+    def __init__(self,username='2015301020142',password='17871X',mail = None):
         self.__username = username
         self.__password = password
         self.__token = None
         self.__count = 0
+        self.__mail = mail
 
     def count(self):
         if self.__count >= 6:
@@ -48,17 +51,39 @@ class User(object):
         else:
             print('error when getting token:', response.status_code)
 
+    def loop_reservate(self,roomId,seat_no,start,end):
+    	today = datetime.date.today()
+    	token = self.__token
+    	library = lib.Lib()
+
+    	self.reservate_exclude(roomId,str(today),start,end)
+
+    	while True:
+    		time.sleep(8)
+    		seats = library.free_seats(token,roomId,str(today),star,end)
+    		if len(seats) == 0:
+    			print('retrying...')
+    			continue
+    		self.stop_cancel()
+    		result,location = self.reservate(roomId,seat_no,str(today),start,end)
+    		if result == True:
+    			break
+
+
+
+
+
     #if success return True,location, else return false,None
-    def reservate(self,roomId=10,seat_no=76,date=str(datetime.date.today()),start=9,end=22):
+    def reservate(self,roomId=7,seat_no=41,date=str(datetime.date.today()),start=9,end=22):
         token = self.__token
 
         library = lib.Lib()
-        seats_json = library.free_seats(token, roomId, date, start, end).get('data').get('seats')
+        seats_json = library.free_seats(token, roomId, date, start, end)
 
         #若选中的房间在指定时间段内无可用座位，则结束程序
         if(len(seats_json) == 0):
             print('not available seats in the room selected,finish')
-            return
+            return False,None
 
         form = {
             'startTime': int(start * 60),
@@ -103,8 +128,10 @@ class User(object):
         if result.status_code == 200:
             status = result.json().get('status')
             if status == 'success':
-                print('预约成功:', result.json().get('data').get('location'))
                 location = result.json().get('data').get('location')
+                print('预约成功:', location)
+                if self.__mail != None:
+                	util.Util.sendMail(self.__mail,location+','+str(start)+'->'+str(end))
                 return True,location
             else:
                 print('预约失败:',result.json().get('message'))

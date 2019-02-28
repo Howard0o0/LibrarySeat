@@ -28,7 +28,7 @@ class Lib:
             if response.status_code == 200:
                 r_json = response.json()
                 # print(r_json)
-                return r_json
+                return r_json.get('data').get('seats')
             else:
                 print('free_seat_json:', response.status_code, response.url)
                 return None
