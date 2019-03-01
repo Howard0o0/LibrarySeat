@@ -15,6 +15,9 @@ class User(object):
         self.__count = 0
         self.__mail = mail
 
+    def rtn_token(self):
+        return self.__token
+
     def count(self):
         if self.__count >= 6:
             self.__count = 0
@@ -51,7 +54,7 @@ class User(object):
         else:
             print('error when getting token:', response.status_code)
 
-    def loop_reservate(self,roomId,seat_no,start,end):
+    def loop_reservate(self,roomId=7,seat_no=51,start=14.5,end=17):
     	today = datetime.date.today()
     	token = self.__token
     	library = lib.Lib()
@@ -60,7 +63,7 @@ class User(object):
 
     	while True:
     		time.sleep(8)
-    		seats = library.free_seats(token,roomId,str(today),star,end)
+    		seats = library.free_seats(token,roomId,str(today),start,end)
     		if len(seats) == 0:
     			print('retrying...')
     			continue
@@ -139,9 +142,9 @@ class User(object):
             print('reservation_err:', result.status_code)
 
         return False,None
-    #预约二楼西 二楼东 三楼西 三楼东 任意一个座位
+    #预约二楼西 二楼东 三楼西 三楼东 ，四楼西，四楼东，三楼自主学习区 任意一个座位
     def reservate_exclude(self,exclude_id,date,start,end):
-        all_room_id = [6,7,8,10]
+        all_room_id = [6,7,8,10,9,11,12]
         for id in all_room_id:
             if id == exclude_id:
                 continue
