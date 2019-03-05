@@ -134,7 +134,7 @@ class User(object):
                 location = result.json().get('data').get('location')
                 print('预约成功:', location)
                 if self.__mail != None:
-                	util.Util.sendMail(self.__mail,location+','+str(start)+'->'+str(end))
+                	util.Util.sendMail(self.__mail,location+'，时间'+str(start)+' -- '+str(end))
                 return True,location
             else:
                 print('预约失败:',result.json().get('message'))
