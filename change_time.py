@@ -52,6 +52,7 @@ def test():
 
 
 if __name__ == '__main__':
+    print(time.localtime())
 
     threads = []
     t1 = threading.Thread(target=change_time_p,args=('2015301020142','17871X','837971940@qq.com',6,50,14.5,17))

@@ -63,6 +63,7 @@ def reservate_tomorrow_p(user,roomId=6,seat_no=50,start=9,end=17):
         user.reservate_exclude(roomId,str(tomorrow),start,end)
 
 if __name__ == '__main__':
+    print(time.localtime())
 
     howard = user.User(username='2015301020142',password='17871X',mail='837971940@qq.com')
     cs = user.User(username='2015302590161',password='180010',mail='245015259@qq.com')
