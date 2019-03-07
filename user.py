@@ -137,12 +137,12 @@ class User(object):
             status = result.json().get('status')
             if status == 'success':
                 location = result.json().get('data').get('location')
-                print('预约成功:', location)
+                print(self.__username,' 预约成功:', location)
                 if self.__mail != None:
                 	util.Util.sendMail(self.__mail,location+'，时间'+str(start)+' -- '+str(end))
                 return True,location
             else:
-                print('预约失败:',result.json().get('message'))
+                print(self.__username ,'预约失败:',result.json().get('message'))
         else:
             print('reservation_err:', result.status_code)
 
