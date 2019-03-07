@@ -15,6 +15,9 @@ class User(object):
         self.__count = 0
         self.__mail = mail
 
+    def get_username(self):
+        return self.__username
+
     def rtn_token(self):
         return self.__token
 
@@ -42,10 +45,12 @@ class User(object):
         try:
             response = requests.get(login_url, params=data, headers=headers,timeout=5)
         except requests.Timeout:
-            print('time out {},retrying...'.format(self.__count))
+            print('time out,retrying...{}'.format(self.__count))
             self.get_token(self)
         except  requests.RequestException:
             print('error:',requests.RequestException)
+        except requests.exceptions.RequestException:
+            print('errot:',requests.exceptions.RequestException)
         if response.status_code == 200:
             # get token
             response_json = response.json()
