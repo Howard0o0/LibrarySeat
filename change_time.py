@@ -55,15 +55,17 @@ if __name__ == '__main__':
     print(time.localtime())
 
     threads = []
-    t1 = threading.Thread(target=change_time_p,args=('2015301020142','17871X','837971940@qq.com',6,50,14.5,17))
+    t1 = threading.Thread(target=change_time_p,args=('2015301020142','17871X','837971940@qq.com', 6, 50, 14.5, 17))
     threads.append(t1)
-    t2 = threading.Thread(target=change_time_p, args=('2015302590161', '180010', '245015259@qq.com', 6, 52, 14.5,17))
+    t2 = threading.Thread(target=change_time_p, args=('2015302590161', '180010', '245015259@qq.com', 6, 52, 14.5, 17))
     threads.append(t2)
 
     for t in threads:
         t.setDaemon(True)
         t.start()
-    t.join()
+
+    for t in threads:
+        t.join()
 
     # if len(sys.argv) == 3:
     #     start = float(sys.argv[1])

@@ -8,39 +8,6 @@ import threading
 cnt = 0
 
 
-
-def reservate_tommorow(roomId=6,seat_no=67,start=9,end=17):
-    today = datetime.date.today()
-    tomorrow = today + datetime.timedelta(days=1)
-    
-    howard = user.User('2015301020142','17871X','837971940@qq.com')
-    cs = user.User('2015302590161','180010','245015259@qq.com')
-    howard.get_token()
-    cs.get_token()
-
-    howard.reservate(roomId,seat_no,str(tomorrow),start,end)
-    cs.reservate(roomId,seat_no+1,str(tomorrow),start,end)
-
-    hw_rs,_,__ = howard.reservation()
-    cs_rs,a,aa = cs.reservation()
-
-    while cnt <= 5 and (hw_rs == False or cs_rs == False):
-        ++cnt
-        msg = 'hw:' + str(hw_rs) + ' ,cs:' + str(cs_rs)
-        util.Util.sendMail('837971940@qq.com','reservate_tomorrow error'+ str(cnt) +':'+msg)
-        if cnt <= 5:
-            time.sleep(3)
-            reservate_tommorow()
-
-
-
-def test():
-    today = datetime.date.today()
-    howard = user.User('2015301020142','17871X','837971940@qq.com')
-    howard.get_token()
-    howard.stop_cancel()
-    howard.reservate(7,29,str(today),12,13.5)
-
 def reservate_tomorrow_p(user,roomId=6,seat_no=50,start=9,end=17):
     today = datetime.date.today()
     tomorrow = today + datetime.timedelta(days=1)
@@ -83,7 +50,9 @@ if __name__ == '__main__':
     for t in threads:
         t.setDaemon(True)
         t.start()
-    t.join()
+
+    for t in threads:
+        t.join()
 
     # test()
     # command = input('1 reservate today\n2 reservate tomorrow\n')
