@@ -55,7 +55,7 @@ class User(object):
             # get token
             response_json = response.json()
             self.__token = response_json.get('data').get('token')
-            print('token got:',self.__token)
+            print(self.__username,' token got:',self.__token)
         else:
             print('error when getting token:', response.status_code)
 

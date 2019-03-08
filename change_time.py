@@ -59,6 +59,9 @@ if __name__ == '__main__':
     threads.append(t1)
     t2 = threading.Thread(target=change_time_p, args=('2015302590161', '180010', '245015259@qq.com', 6, 52, 14.5, 17))
     threads.append(t2)
+    t3 = threading.Thread(target=change_time_p, args=('2015301610071','070043','992392207@qq.com', 6, 41, 15, 18))
+    threads.append(t3)
+
 
     for t in threads:
         t.setDaemon(True)

@@ -34,8 +34,10 @@ if __name__ == '__main__':
 
     howard = user.User(username='2015301020142',password='17871X',mail='837971940@qq.com')
     cs = user.User(username='2015302590161',password='180010',mail='245015259@qq.com')
+    lz = user.User(username='2015301610071',password=' 070043',mail='992392207@qq.com')
     howard.get_token()
     cs.get_token()
+    lz.get_token()
 
 
     threads = []
@@ -43,6 +45,8 @@ if __name__ == '__main__':
     threads.append(t1)
     t2 = threading.Thread(target=reservate_tomorrow_p, args=(cs, 6, 52, 9,17))
     threads.append(t2)
+    t3 = threading.Thread(target=reservate_tomorrow_p, args=(lz, 6, 41, 9, 18))
+    threads.append(t3)
 
     util.Util.wait_until_rsvtime()
 
