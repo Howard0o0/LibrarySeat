@@ -33,8 +33,8 @@ if __name__ == '__main__':
     print(time.localtime())
 
     howard = user.User(username='2015301020142',password='17871X',mail='837971940@qq.com')
-    cs = user.User(username='2015302590161',password='180010',mail='245015259@qq.com')
-    lz = user.User(username='2015301610071',password='070043',mail='992392207@qq.com')
+    cs = user.User(username='2015302590161',password='180010' ,mail='245015259@qq.com')
+    lz = user.User('2015301610071','070043' ,'992392207@qq.com')
     howard.get_token()
     cs.get_token()
     lz.get_token()
