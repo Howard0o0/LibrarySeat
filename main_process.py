@@ -4,6 +4,8 @@ import util
 import time
 import datetime
 import threading
+import que
+from util import Util
 
 cnt = 0
 
@@ -16,7 +18,7 @@ def reservate_tomorrow_p(user,roomId=6,seat_no=50,start=9,end=17):
         user.get_token()
 
     user.reservate(roomId, seat_no, str(tomorrow), start, end)
-    hw_rs, _, __ = user.reservation()
+    hw_rs, _, __ ,___,begin,end= user.reservation()
     if hw_rs == True:
         return
 
@@ -26,30 +28,34 @@ def reservate_tomorrow_p(user,roomId=6,seat_no=50,start=9,end=17):
         msg = user.get_username() + str(hw_rs)
         util.Util.sendMail('837971940@qq.com','reservate_tomorrow error'+ str(i) +':'+msg)
         time.sleep(1)
-        user.reservate(roomId, seat_no, str(tomorrow), start, end)
-        user.reservate_exclude(roomId,str(tomorrow),start,end)
+        hw_rs,_ = user.reservate(roomId, seat_no, str(tomorrow), start, end)
+        if hw_rs == True:
+            return
+        hw_rs, _ = user.reservate_exclude(roomId,str(tomorrow),start,end)
 
-if __name__ == '__main__':
+def main():
     print(time.localtime())
-
-    howard = user.User(username='2015301020142',password='17871X',mail='837971940@qq.com')
-    cs = user.User(username='2015302590161',password='180010',mail='245015259@qq.com')
-    lz = user.User(username='2015301610071',password='070043',mail='992392207@qq.com')
-    howard.get_token()
-    cs.get_token()
-    lz.get_token()
-
-
     threads = []
-    t1 = threading.Thread(target=reservate_tomorrow_p,args=(howard,6,50,9,17))
-    threads.append(t1)
-    t2 = threading.Thread(target=reservate_tomorrow_p, args=(cs, 6, 52, 9,17))
-    threads.append(t2)
-    t3 = threading.Thread(target=reservate_tomorrow_p, args=(lz, 6, 41, 9, 18))
-    threads.append(t3)
 
-    util.Util.wait_until_rsvtime()
+    for u in que.users:
+        username = u.get('username')
+        passwd = u.get('password')
+        email = u.get('email')
+        start1 = u.get('start1')
+        end1 = u.get('end1')
+        start2 = u.get('start2')
+        end2 = u.get('end2')
+        start3 = u.get('start3')
+        end3 = u.get('end')
+        room_id = u.get('room_id')
+        seat_no = u.get('seat_no')
+        usr = user.User(username,passwd,email)
+        usr.get_token()
+        t1 = threading.Thread(target=reservate_tomorrow_p,
+                              args=(usr, room_id,seat_no,Util.str_time_to_float(start1),Util.str_time_to_float(end3)))
+        threads.append(t1)
 
+    Util.wait_until_rsvtime()
 
     for t in threads:
         t.setDaemon(True)
@@ -58,9 +64,10 @@ if __name__ == '__main__':
     for t in threads:
         t.join()
 
-    # test()
-    # command = input('1 reservate today\n2 reservate tomorrow\n')
-    # function_select(command)
+
+if __name__ == '__main__':
+
+    main()
 
 
 
