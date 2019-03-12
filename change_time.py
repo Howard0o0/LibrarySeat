@@ -12,15 +12,17 @@ def auto_change_time(username,passwd,email,end1,start2,end2,start3,end3,room_id,
     usr = user.User(username,passwd,email)
     end3 = Util.str_time_to_float(end3)
     str_now =  Util.get_cn_now()
-    #中午换时间
-    if Util.time_compare(str_now,end1) and Util.time_compare(start2,str_now):
-        s2 = Util.str_time_to_float(start2)
-        print('s2:',s2)
-        change_time_p(usr,room_id,seat_no,s2,end3)
-    #下午换时间
-    if Util.time_compare(str_now,end2) and Util.time_compare(start3,str_now):
-        s3 = Util.str_time_to_float(start3)
-        change_time_p(usr,room_id,seat_no,s3,end3)
+    flag,status,a,aa,aaa,aaaa = usr.reservation()
+    if flag and (status == 'CHEKE_IN'or status == 'AWAY'):
+        #中午换时间
+        if Util.time_compare(str_now,end1) and Util.time_compare(start2,str_now):
+            s2 = Util.str_time_to_float(start2)
+            print('s2:',s2)
+            change_time_p(usr,room_id,seat_no,s2,end3)
+        #下午换时间
+        if Util.time_compare(str_now,end2) and Util.time_compare(start3,str_now):
+            s3 = Util.str_time_to_float(start3)
+            change_time_p(usr,room_id,seat_no,s3,end3)
 
 
 
@@ -40,8 +42,8 @@ def test():
 
 def main():
     # 如果当前时间不是7~21点，则不需要检测换时间
-    if not (Util.time_compare(Util.get_cn_now(), '07:00') and Util.time_compare('21:00', Util.get_cn_now())):
-        return
+    # if not (Util.time_compare(Util.get_cn_now(), '07:00') and Util.time_compare('21:00', Util.get_cn_now())):
+    #     return
     print(time.localtime())
 
     threads = []
@@ -75,7 +77,6 @@ if __name__ == '__main__':
 
     main()
 
-    print('time is up!')
 
 
 
