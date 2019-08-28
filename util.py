@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from email.mime.text import MIMEText
 from email.header import Header
 from smtplib import SMTP_SSL
@@ -12,7 +14,7 @@ class Util:
         mail_server = 'smtp.qq.com'
         port = '25'
         sender_qq = '837971940'
-        sender_passwd = 'cwfxivexhmgabdfc'
+        sender_passwd = 'dfnhdwsyksebbbbg'
         send_qq_mail = '837971940@qq.com'
         receiver = rec
         msg = MIMEText(mail_msg, 'plain', 'utf-8')
@@ -41,7 +43,7 @@ class Util:
     # 如果现在是预约时间，返回TRUE否则返回FALSE
     @classmethod
     def is_rsv_time(cls):
-        rsv_time = time.strptime("22:45:00", '%H:%M:%S')
+        rsv_time = time.strptime("22:45:01", '%H:%M:%S')
         now = time.localtime()
         result = cls.time_cmp(now, rsv_time)
         if result < 0:

@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import requests
 import lib
 import os
@@ -56,9 +58,11 @@ class User(object):
             self.__token = response_json.get('data').get('token')
             print(self.__username, ' token got:', self.__token)
         else:
+            self.count()
+            self.get_token()
             print('error when getting token:', response.status_code)
 
-    def loop_reservate(self, roomId=6, seat_no=50, start=14.5, end=17):
+    def loop_reservate(self, roomId=16, seat_no=17, start=14.5, end=17):
         today = datetime.date.today()
         token = self.__token
         library = lib.Lib()
@@ -68,6 +72,12 @@ class User(object):
         while True:
             time.sleep(8)
             seats = library.free_seats(token, roomId, str(today), start, end)
+            while seats == None:
+                self.get_token()
+                token = self.__token
+                seats = library.free_seats(token, roomId, str(today), start, end)
+                self.count()
+
             if len(seats) == 0:
                 print('retrying...')
                 continue

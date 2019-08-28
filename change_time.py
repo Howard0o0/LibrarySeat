@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import user
 import datetime
 import util
@@ -32,7 +34,7 @@ def change_time_p(usr,roomId=6,seat_no=50,start=14.5,end=17):
     usr.stop_cancel()
     reservate_result_hw, location_hw = usr.reservate(roomId, seat_no, str(today), start, end)
     if reservate_result_hw == False:
-        usr.loop_reservate()
+        usr.loop_reservate(roomId, seat_no, start, end)
  
     
 def test():
@@ -42,8 +44,8 @@ def test():
 
 def main():
     # 如果当前时间不是7~21点，则不需要检测换时间
-    # if not (Util.time_compare(Util.get_cn_now(), '07:00') and Util.time_compare('21:00', Util.get_cn_now())):
-    #     return
+    if not (Util.time_compare(Util.get_cn_now(), '07:00') and Util.time_compare('21:00', Util.get_cn_now())):
+        return
     print(time.localtime())
 
     threads = []
@@ -71,11 +73,17 @@ def main():
         t.join()
 
 
-
+def test():
+    howard = user.User('2015301020142','17871X','837971940@qq.com')
+    howard.get_token()
+    howard.stop_cancel()
+    howard.reservate(roomId=16,seat_no=17,start=14.5,end=21)
+    howard.loop_reservate(end=21)
 
 if __name__ == '__main__':
 
     main()
+    # test()
 
 
 
