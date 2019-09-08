@@ -30,17 +30,17 @@ users = [
     # },
 
     {
-        'username':'2015301610071',
-        'password':'070043',
-        'email': '992392207@qq.com',
+        'username':'2015301610164',
+        'password':'210013',
+        'email': '695977846@qq.com',
         'start1': '09:00',
         'end1': '11:30',
         'start2': '15:00',
         'end2': '18:00',
         'start3': '19:00',
         'end': '21:00',
-        'room_id': 6,
-        'seat_no': 41
+        'room_id': 7,
+        'seat_no': 68
     },
 
     {
@@ -53,8 +53,8 @@ users = [
         'end2': '16:30',
         'start3': '19:00',
         'end': '21:00',
-        'room_id': 16,
-        'seat_no': 17
+        'room_id': 10,
+        'seat_no': 78
     }
 
     # {

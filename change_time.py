@@ -15,7 +15,7 @@ def auto_change_time(username,passwd,email,end1,start2,end2,start3,end3,room_id,
     end3 = Util.str_time_to_float(end3)
     str_now =  Util.get_cn_now()
     flag,status,a,aa,aaa,aaaa = usr.reservation()
-    if flag and (status == 'CHEKE_IN'or status == 'AWAY'):
+    if flag and (status == 'CHECK_IN'or status == 'AWAY'):
         #中午换时间
         if Util.time_compare(str_now,end1) and Util.time_compare(start2,str_now):
             s2 = Util.str_time_to_float(start2)
@@ -36,11 +36,6 @@ def change_time_p(usr,roomId=6,seat_no=50,start=14.5,end=17):
     if reservate_result_hw == False:
         usr.loop_reservate(roomId, seat_no, start, end)
  
-    
-def test():
-    today = datetime.date.today()
-    howard = user.User('2015301020142', '17871X', '837971940')
-    howard.get_token()
 
 def main():
     # 如果当前时间不是7~21点，则不需要检测换时间
@@ -74,11 +69,12 @@ def main():
 
 
 def test():
-    howard = user.User('2015301020142','17871X','837971940@qq.com')
+    howard = user.User('2016301110055','173722','837971940@qq.com')
     howard.get_token()
-    howard.stop_cancel()
-    howard.reservate(roomId=16,seat_no=17,start=14.5,end=21)
-    howard.loop_reservate(end=21)
+    howard.reservation()
+    # howard.stop_cancel()
+    # howard.reservate(roomId=16,seat_no=17,start=14.5,end=21)
+    # howard.loop_reservate(end=21)
 
 if __name__ == '__main__':
 
