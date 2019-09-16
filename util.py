@@ -4,6 +4,7 @@ from email.mime.text import MIMEText
 from email.header import Header
 from smtplib import SMTP_SSL
 import time
+import datetime
 from datetime import datetime, timedelta, timezone
 
 
@@ -54,10 +55,16 @@ class Util:
     @classmethod
     def wait_until_rsvtime(cls):
         while True:
-            is_rsv_time = cls.is_rsv_time()
-            if is_rsv_time:
-                print('time is up!')
+            nowDate = datetime.now().strftime('%Y/%m/%d ')
+            rsv_time = datetime.strptime(nowDate+"23:40:00","%Y/%m/%d %H:%M:%S")
+            nowTime = datetime.now()
+            if((nowTime>rsv_time) == True):
                 break
+        # while True:
+        #     is_rsv_time = cls.is_rsv_time()
+        #     if is_rsv_time:
+        #         print('time is up!')
+        #         break
 
     # if str_time1 > str_time2,return True
     @classmethod
@@ -103,3 +110,18 @@ class Util:
         if str_min == '30':
             hour = hour + 0.5
         return hour
+
+if __name__ == '__main__':
+
+    while True:
+        nowDate = datetime.now().strftime('%Y/%m/%d ')
+        rsv_time = datetime.strptime(nowDate+"23:40:00","%Y/%m/%d %H:%M:%S")
+        nowTime = datetime.now()
+        if((nowTime>rsv_time) == True):
+            break
+    
+
+
+    print(rsv_time)
+    print(nowTime)
+    print(nowTime>rsv_time)
