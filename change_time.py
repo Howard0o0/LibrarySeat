@@ -69,17 +69,17 @@ def main():
 
 
 def test():
-    howard = user.User('2016301110055','173722','837971940@qq.com')
+    howard = user.User('2015301610164','210013','837971940@qq.com')
     howard.get_token()
-    howard.reservation()
+    # howard.reservation()
     # howard.stop_cancel()
-    # howard.reservate(roomId=16,seat_no=17,start=14.5,end=21)
-    # howard.loop_reservate(end=21)
+    howard.reservate(roomId=8,seat_no=84,start=15,end=21)
+    howard.loop_reservate(roomId=8, seat_no=84, start=15, end=18)
 
 if __name__ == '__main__':
 
-    main()
-    # test()
+    # main()
+    test()
 
 
 

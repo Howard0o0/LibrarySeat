@@ -11,8 +11,8 @@ users = [
         'end2': '16:30',
         'start3': '19:00',
         'end': '21:00',
-        'room_id':16,
-        'seat_no':8
+        'room_id':6,
+        'seat_no':76
     },
 
     # {
@@ -39,8 +39,8 @@ users = [
         'end2': '18:00',
         'start3': '19:00',
         'end': '21:00',
-        'room_id': 7,
-        'seat_no': 68
+        'room_id': 6,
+        'seat_no': 52
     },
 
     {
@@ -53,8 +53,8 @@ users = [
         'end2': '16:30',
         'start3': '19:00',
         'end': '21:00',
-        'room_id': 10,
-        'seat_no': 78
+        'room_id': 6,
+        'seat_no': 84
     }
 
     # {

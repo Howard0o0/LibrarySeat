@@ -56,7 +56,7 @@ class Util:
     def wait_until_rsvtime(cls):
         while True:
             nowDate = datetime.now().strftime('%Y/%m/%d ')
-            rsv_time = datetime.strptime(nowDate+"23:40:00","%Y/%m/%d %H:%M:%S")
+            rsv_time = datetime.strptime(nowDate+"22:45:00","%Y/%m/%d %H:%M:%S")
             nowTime = datetime.now()
             if((nowTime>rsv_time) == True):
                 break
