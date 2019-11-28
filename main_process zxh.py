@@ -63,34 +63,20 @@ def main():
 
     for t in threads:
         t.join()
-
+        
 def test():
 
     today = datetime.date.today()
     tomorrow = today + datetime.timedelta(days=1)
     
-    ssq = user.User('2016301110055','173722','3467536438@qq.com')
     zxh = user.User('2015301610164','210013','695977846@qq.com')
-    howard = user.User('2019282110139','17871X','837971940@qq.com')
-    ssq.get_token()
-    zxh.get_token()
-    howard.get_token()
 
     Util.wait_until_rsvtime()
-    
-    res,loc = ssq.reservate_ssq(roomId=6, seat_no=84, date=str(tomorrow), start=9, end=21)
-    if(res == False):
-        res,loc = ssq.reservate(roomId=6, seat_no=84, date=str(tomorrow), start=9, end=21)
-        if(res == False):
-            ssq.reservate_exclude( 6, str(tomorrow), 9, 21)
-
+        
     res,loc = zxh.reservate(roomId=7, seat_no=84, date=str(tomorrow), start=9, end=21)
     if(res == False):
         zxh.reservate_exclude( 7, str(tomorrow), 9, 21)
-        
-    res,loc = howard.reservate(roomId=6, seat_no=76, date=str(tomorrow), start=9, end=21)
-    if(res == False):
-        howard.reservate_exclude( 6, str(tomorrow), 9, 21)
+
 
 if __name__ == '__main__':
 

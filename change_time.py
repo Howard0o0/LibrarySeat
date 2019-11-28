@@ -69,12 +69,11 @@ def main():
 
 
 def test():
-    howard = user.User('2015301610164','210013','837971940@qq.com')
+    howard = user.User('2019282110139','17871X','695977846@qq.com')
     howard.get_token()
-    # howard.reservation()
     # howard.stop_cancel()
-    howard.reservate(roomId=8,seat_no=84,start=15,end=21)
-    howard.loop_reservate(roomId=8, seat_no=84, start=15, end=18)
+    howard.reservate_ssq(roomId=6,seat_no=84,start=19,end=21)
+    howard.loop_reservate(roomId=6, seat_no=84, start=19, end=21)
 
 if __name__ == '__main__':
 

@@ -86,6 +86,56 @@ class User(object):
             result, location = self.reservate(roomId, seat_no, str(today), start, end)
             if result:
                 break
+    
+    def reservate_ssq(self,roomId=7, seat_no=41, date=str(datetime.date.today()), start=9, end=22):
+        token = self.__token
+
+        form = {
+            'startTime': int(start * 60),
+            'endTime': int(end * 60),
+            'seat': 0,
+            'date': date,
+        }
+
+        headers = {
+            'token': token,
+            'Host': 'seat.lib.whu.edu.cn:8443',
+            'Connection': 'Keep-Alive',
+            'Expect': '100-continue',
+            'User-Agent': 'Mozilla/5.0 (Linux; Android 7.0; HUAWEI NXT-TL00 Build/HUAWEINXT-TL00) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 Mobile Safari/534.30',
+            'Content-Tyep': 'application/x-www-form-urlencoded;charset=UTF-8',
+        }
+
+       
+
+        form['seat'] = 3672
+        url = 'https://seat.lib.whu.edu.cn:8443/rest/v2/freeBook'
+        try:
+            result = requests.post(url, data=form, headers=headers)
+        except requests.Timeout:
+            self.count()
+            self.get_token()
+            print('time out when reservating {}'.format(self.__count))
+            self.reservate(self, roomId, seat_no, date, start, end)
+        except requests.RequestException:
+            print('error when reservating:', requests.RequestException)
+        if result.status_code == 200:
+            status = result.json().get('status')
+            if status == 'success':
+                location = result.json().get('data').get('location')
+                q, qq, qqq, loc, begin, end = self.reservation()
+                print(self.__username, ' 预约成功:', location, begin + '--' + end)
+                if self.__mail != None:
+                    util.Util.sendMail(self.__mail, location + '，时间' + begin + ' -- ' + end)
+                return True, location
+            else:
+                print(self.__username, '预约失败:', result.json().get('message'))
+                return False, None
+        else:
+            print('reservation_err:', result.status_code)
+            self.get_token()
+
+        return False, None
 
     # if success return True,location, else return false,None
     def reservate(self, roomId=7, seat_no=41, date=str(datetime.date.today()), start=9, end=22):
