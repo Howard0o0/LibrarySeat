@@ -78,11 +78,9 @@ def test():
 
     Util.wait_until_rsvtime()
     
-    res,loc = ssq.reservate_ssq(roomId=6, seat_no=84, date=str(tomorrow), start=9, end=21)
+    res,loc = ssq.reservate(roomId=6, seat_no=85, date=str(tomorrow), start=9, end=21)
     if(res == False):
-        res,loc = ssq.reservate(roomId=6, seat_no=84, date=str(tomorrow), start=9, end=21)
-        if(res == False):
-            ssq.reservate_exclude( 6, str(tomorrow), 9, 21)
+        ssq.reservate_exclude( 6, str(tomorrow), 9, 21)
 
     res,loc = zxh.reservate(roomId=7, seat_no=84, date=str(tomorrow), start=9, end=21)
     if(res == False):
